@@ -53,6 +53,26 @@ fn compute_distance(a: Vec<u32>, b: Vec<u32>) -> i64 {
     result
 }
 
+fn nb_repeat(a: Vec<u32>, b: u32) -> u32 {
+    let mut result: u32 = 0;
+    for e in a {
+        if e == b {
+            result += 1;
+        }
+    }
+    result
+}
+
+fn compute_similarity(a: Vec<u32>, b: Vec<u32>) -> i64 {
+    let mut result: i64 = 0;
+    for e in a {
+        let temp_i : i64 = e.into();
+        let temp_q: i64 = nb_repeat(b.clone(), e).into();
+        result += temp_i * temp_q;
+    }
+    result
+}
+
 fn main() -> std::io::Result<()> {
     let file = "data.txt";
     let mut data: Vec<Vec<u32>> = parse_file(file);
@@ -60,8 +80,9 @@ fn main() -> std::io::Result<()> {
     data[0] = sort_vect(data[0].clone());
     data[1] = sort_vect(data[1].clone());
 
-    println!("Distance: {}", compute_distance(data[0].clone(), data[1].clone()));
+    println!("Result First part: {}", compute_distance(data[0].clone(), data[1].clone()));
 
+    println!("Result Second part: {}", compute_similarity(data[0].clone(), data[1].clone()));
 
     Ok(())
 }
